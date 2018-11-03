@@ -11,15 +11,12 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    print("using index")
-    print(request.query_string)
     if request.query_string:
         query_string = request.query_string.decode("utf-8")
         key, value = query_string.split("=")
-        print(key, value)
         if key == "VideoID":
             return send_video_page(value)
-    # send_video_page(request.headers['VideoID'])
+
     return render_template('index.html') 
 
 @app.route("/generate_route")
