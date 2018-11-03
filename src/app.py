@@ -19,5 +19,5 @@ def generate_route():
 
 @app.route("/<video_key>")
 def send_video_page(video_key):
-    return render_template('index.html', video_key=video_key)
+    return render_template('video_page.html', video_key=video_key)
 
