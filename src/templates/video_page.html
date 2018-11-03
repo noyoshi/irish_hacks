@@ -40,6 +40,7 @@
           height: '390',
           width: '640',
           videoId: "{{ video_key }}",
+          playerVars: { rel: 0 },
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
