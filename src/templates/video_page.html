@@ -94,5 +94,27 @@
         player.stopVideo();
       }
     </script>
+
+    <!-- 2. Embedded Live Chat -->
+    <br>
+    Enter Chat Room ID: <input type="text" name="chatID" id="chatid">
+    <input type="button" value="Chat" onclick="tlkio()">
+    
+    <div id="chat"></div>
+    
+    <script>
+      var script = document.createElement('script');
+      script.src = 'http://tlk.io/embed.js';
+      script.type = 'text/javascript';
+      document.body.parentNode.appendChild(script);
+
+      function tlkio() {
+        console.log("clicked it!");
+       // document.getElementById("tlkio").style.display = "block";
+       // document.getElementById("tlkio").setAttribute("data-channel", "yo000"); 
+        document.getElementById("chat").innerHTML = '<div id="tlkio" style="display: block; " data-channel="hey" style="width: 600px; height: 600px;"></div>';
+      }
+    </script>
+
   </body>
 </html>
