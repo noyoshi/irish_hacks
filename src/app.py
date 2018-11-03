@@ -29,14 +29,9 @@ def generate_route():
 def send_video_page(video_key):
     return render_template('video_page.html', video_key=video_key)
 
-@app.route("/update_video/<video_key>")
-def update_video(video_key):
-    print("Trying to update", video_key)
-    return "success"
-
 @socketio.on('video_update')
 def handle_video_update(data):
-    print(data, "VIDEO UPDATE??")
+    print(data)
     emit('video_update', data, broadcast=True)
 
 if __name__ == "__main__":
