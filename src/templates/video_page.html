@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
   <body>
     <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
     <div id="player"></div>
@@ -12,6 +15,13 @@
       var firstScriptTag = document.getElementsByTagName('script')[0];
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
+      function sendAjax(videoId) {
+        $.ajax({url: "update_video/" + videoId, success: function(result) {
+          console.log(result);
+        }});
+      };
+
+
       // 3. This function creates an <iframe> (and YouTube player)
       //    after the API code downloads.
       var player;
@@ -19,7 +29,7 @@
         player = new YT.Player('player', {
           height: '390',
           width: '640',
-          videoId: '0eIY5b0RKE0',
+          videoId: "{{ video_key }}",
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
@@ -34,8 +44,8 @@
       function streamTimes() {
         if (player == null) return;
         setInterval(function() {
-          console.log(player.getCurrentTime())
-        }, 100);
+          console.log(player.getCurrentTime());
+        }, 500);
       }
 
       // 4. The API will call this function when the video player is ready.
@@ -56,6 +66,8 @@
       function onPlayerStateChange(event) {
         console.log(event.target.getCurrentTime());
         console.log(event);
+        console.log(player.getVideoData().video_id);
+        sendAjax(player.getVideoData().video_id)
         if (event.data == YT.PlayerState.PLAYING && !done) {
           setTimeout(stopVideo, 6000);
           done = true;

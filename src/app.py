@@ -11,6 +11,8 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
+    if 'VideoID' in request.headers:
+        send_video_page(request.headers['VideoID'])
     return render_template('index.html') 
 
 @app.route("/generate_route")
@@ -21,3 +23,7 @@ def generate_route():
 def send_video_page(video_key):
     return render_template('video_page.html', video_key=video_key)
 
+@app.route("/update_video/<video_key>")
+def update_video(video_key):
+    print("Trying to update", video_key)
+    return "success"
