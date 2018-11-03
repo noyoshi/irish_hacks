@@ -1,7 +1,9 @@
 import random 
 from flask import Flask, render_template, url_for, jsonify, request, session, Response
+from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
+socketio = SocketIO(app)
 
 # TODO 
 # Create new video player file for each new client
@@ -31,3 +33,11 @@ def send_video_page(video_key):
 def update_video(video_key):
     print("Trying to update", video_key)
     return "success"
+
+@socketio.on('video_update')
+def handle_video_update(data):
+    print(data, "VIDEO UPDATE??")
+    emit('video_update', data, broadcast=True)
+
+if __name__ == "__main__":
+    socketio.run(app)

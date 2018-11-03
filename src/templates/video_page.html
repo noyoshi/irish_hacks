@@ -6,7 +6,17 @@
   <body>
     <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
     <div id="player"></div>
-
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+        console.log('http://' + document.domain + ':' + location.port);
+        socket.on('connect', function() {
+            socket.emit('video_update', {data: 'I\'m connected!'});
+        });
+        socket.on('message', function(msg){
+            console.log(msg, "MSG"); 
+        });
+    </script>
     <script>
       // 2. This code loads the IFrame Player API code asynchronously.
       var tag = document.createElement('script');
@@ -66,12 +76,9 @@
       function onPlayerStateChange(event) {
         console.log(event.target.getCurrentTime());
         console.log(event);
+        console.log("Video Data");
         console.log(player.getVideoData().video_id);
         sendAjax(player.getVideoData().video_id)
-        if (event.data == YT.PlayerState.PLAYING && !done) {
-          setTimeout(stopVideo, 6000);
-          done = true;
-        }
       }
       function stopVideo() {
         player.stopVideo();
