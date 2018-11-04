@@ -15,7 +15,9 @@
         var socket = io.connect('http://' + document.domain + ':' + location.port);
         console.log('http://' + document.domain + ':' + location.port);
         socket.on('connect', function() {
-            socket.emit('video_update', {data: 'I\'m connected!'});
+          <!-- socket.emit('join_room', { -->
+            <!-- url: window.location.href -->
+          <!-- }); -->
         });
 
 
@@ -55,9 +57,10 @@
       }
 
       socket.on('video_update', function(msg){
-        <!-- console.log("video update"); -->
-        <!-- console.log(msg, "MSG"); -->
-        if (msg.event_type === 1) {
+        console.log(msg.url, "MSG URL");
+        console.log(window.location.href);
+        if (msg.url !== window.location.href) {
+        } else if (msg.event_type === 1) {
           if (Math.abs(msg.time - player.getCurrentTime()) > 1){
             seekTo(msg.time);
           }
@@ -100,6 +103,7 @@
         socket.emit("video_update", {
           time: player.getCurrentTime(), 
           event_type: event.data, 
+          url: window.location.href,
         });
       }
       function stopVideo() {

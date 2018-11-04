@@ -1,6 +1,7 @@
 import random 
 from flask import Flask, render_template, url_for, redirect, request, session, Response
-from flask_socketio import SocketIO, emit
+from flask_socketio import SocketIO, emit, join_room, leave_room
+import json
 
 app = Flask(__name__)
 socketio = SocketIO(app)
@@ -50,6 +51,15 @@ def send_video_page(video_code):
 def handle_video_update(data):
     print(data)
     emit('video_update', data, broadcast=True)
+
+# @socketio.on('join_room')
+# def join_room(data):
+#     try:
+#         my_url = data['url']
+#         print("joining room", my_url)
+#         join_room(my_url)
+#     except:
+#         print("IN JOIN ROOM", data)
 
 @app.route('/robots.txt')
 def static_from_root():
