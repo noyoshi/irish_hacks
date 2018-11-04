@@ -1,5 +1,5 @@
 import random 
-from flask import Flask, render_template, url_for, jsonify, request, session, Response
+from flask import Flask, render_template, url_for, redirect, request, session, Response
 from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
@@ -14,10 +14,13 @@ socketio = SocketIO(app)
 @app.route("/")
 def index():
     if request.query_string:
+        base_url = request.base_url
         query_string = request.query_string.decode("utf-8")
-        key, value = query_string.split("=")
-        if key == "VideoID":
-            return send_video_page(value)
+        chat_key = request.args.get("ChatKey") 
+        video_id = request.args.get("VideoID")
+        new_url = base_url + "{}*{}".format(video_id, chat_key)
+
+        return new_url 
 
     return render_template('index.html') 
 
@@ -25,9 +28,20 @@ def index():
 def generate_route():
     pass
 
-@app.route("/<video_key>")
-def send_video_page(video_key):
-    return render_template('video_page.html', video_key=video_key)
+@app.route("/<video_code>")
+def send_video_page(video_code):
+    print("VIDEO CODE", video_code)
+    data = video_code.split("*") 
+    print(data)
+    if len(data) > 1:
+        video_key, chat_key = data
+    else:
+        video_key = data[0]
+        chat_key = None
+    print(video_key, chat_key)
+    return render_template('video_page.html', 
+            video_key=video_key, 
+            chat_key=chat_key)
 
 @socketio.on('video_update')
 def handle_video_update(data):
