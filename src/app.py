@@ -19,7 +19,8 @@ def index():
         chat_key = request.args.get("ChatKey") 
         video_id = request.args.get("VideoID")
         new_url = base_url + "{}*{}".format(video_id, chat_key)
-
+        if not chat_key:
+            chat_key = "yt_share_default"
         return new_url 
 
     return render_template('index.html') 
@@ -37,7 +38,7 @@ def send_video_page(video_code):
         video_key, chat_key = data
     else:
         video_key = data[0]
-        chat_key = None
+        chat_key = "ytshare_default_chat" 
     print(video_key, chat_key)
     return render_template('video_page.html', 
             video_key=video_key, 
