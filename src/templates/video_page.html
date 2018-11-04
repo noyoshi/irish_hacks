@@ -102,7 +102,9 @@
 
     <!-- 2. Embedded Live Chat -->
     <div id="chat"></div>
+    <script src="http://tlk.io/embed.js" type="text/javascript"></script>
     <style>
+
       #player{
         position: absolute;
         display: block;
@@ -117,33 +119,46 @@
         bottom: 15%;
         left: 12%;
       }
+      #tlkio {
+        position: absolute;
+        margin-right: 5%;
+        margin-left: 75%;
+        margin-top: 5%;
+        width: 20%;
+        height: 68%;
+      }
     </style>
     <script>
       var chatID = "NoahYoshida"
     </script>
 
-    <button onclick="hidechat()">Hide Chat</button>
+    <button onclick="toggleChat()">Toggle Chat</button>
 
     <script>
-      var markup = `<div id="tlkio" data-channel=${chatID} style="width:600px;height:600px;"></div>`
-      document.body.innerHTML += markup;
     </script>
-    <script async src="http://tlk.io/embed.js" type="text/javascript"></script>
 
     <script>
+      var markup = `<div id="tlkio" data-channel=${chatID} style="display:none"></div>`
+      document.body.innerHTML += markup;
       var chatOpen = false;
-      function hidechat() {
+      function toggleChat() {
+        let iframeWrapNoChat = {
+          "right": "12%", 
+          "left": "12%",
+        }
+        let iframeWrapChat = {
+          "right": "30%", 
+          "left": "5%",
+        }
         chatOpen = !chatOpen;
         let tlkio = document.getElementById("tlkio");
         let wrapper = document.getElementById("myiframe-wrapper");
         if (chatOpen) {
           tlkio.style.display = "block";
-          $('#myiframe-wrap').css({
-            'margin-right': '50%'});
+          $('#myiframe-wrap').css(iframeWrapChat);
         } else {
           tlkio.style.display = "none";
-          $('#myiframe-wrap').css({
-            'margin-right': '20%'});
+          $('#myiframe-wrap').css(iframeWrapNoChat);
         }
       }
     </script>
