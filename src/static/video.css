@@ -1,0 +1,14 @@
+#player {
+    position: absolute;
+    display: block;
+    border:0;
+    height: 100%;
+    width: 100%;
+}
+#myiframe-wrap {
+    position: absolute;
+    top: 10%;
+    right: 12%;
+    bottom: 15%;
+    left: 12%;
+}
