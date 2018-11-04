@@ -55,8 +55,8 @@
       }
 
       socket.on('video_update', function(msg){
-        console.log("video update");
-        console.log(msg, "MSG");
+        <!-- console.log("video update"); -->
+        <!-- console.log(msg, "MSG"); -->
         if (msg.event_type === 1) {
           if (Math.abs(msg.time - player.getCurrentTime()) > 1){
             seekTo(msg.time);
@@ -82,13 +82,13 @@
             time: player.getCurrentTime(), 
             event_type: player.getPlayerState(), 
         });
-        }, 1000);
+        }, 2000);
       }
 
       // 4. The API will call this function when the video player is ready.
       function onPlayerReady(event) {
         event.target.playVideo();
-        streamTimes();
+        <!-- streamTimes(); -->
       }
 
       // 5. The API calls this function when the player's state changes.
