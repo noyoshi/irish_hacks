@@ -37,7 +37,7 @@ def send_video_page(video_code):
         video_key, chat_key = data
     else:
         video_key = data[0]
-        chat_key = None
+        chat_key = "ytshare_default_chat" 
     print(video_key, chat_key)
     return render_template('video_page.html', 
             video_key=video_key, 
