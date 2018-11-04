@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
   <body>
     <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
-    <div id="player"></div>
+    <div class="container">
+        <div id="player"></div>
+    </div>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
     <script type="text/javascript" charset="utf-8">
         var socket = io.connect('http://' + document.domain + ':' + location.port);
@@ -27,8 +31,9 @@
       var player;
       function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
-          height: '390',
-          width: '640',
+          autoplay: 1,
+          width: '720',
+          height: '480',
           videoId: "{{ video_key }}",
           playerVars: { rel: 0 },
           events: {
@@ -96,25 +101,29 @@
     </script>
 
     <!-- 2. Embedded Live Chat -->
-    <br>
-    Enter Chat Room ID: <input type="text" name="chatID" id="chatid">
-    <input type="button" value="Chat" onclick="tlkio()">
-    
     <div id="chat"></div>
-    
+    <br>
     <script>
-      var script = document.createElement('script');
-      script.src = 'http://tlk.io/embed.js';
-      script.type = 'text/javascript';
-      document.body.parentNode.appendChild(script);
-
-      function tlkio() {
-        console.log("clicked it!");
-       // document.getElementById("tlkio").style.display = "block";
-       // document.getElementById("tlkio").setAttribute("data-channel", "yo000"); 
-        document.getElementById("chat").innerHTML = '<div id="tlkio" style="display: block; " data-channel="hey" style="width: 600px; height: 600px;"></div>';
-      }
+      var chatID = "NoahYoshida"
     </script>
 
+    <button onclick="hidechat()">Hide Chat</button>
+
+    <script>
+      var markup = `<div id="tlkio" data-channel=${chatID} style="width:600px;height:600px;"></div>`
+      document.body.innerHTML += markup;
+    </script>
+    <script async src="http://tlk.io/embed.js" type="text/javascript"></script>
+
+    <script>
+      function hidechat() {
+        var x = document.getElementById("tlkio");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      }
+    </script>
   </body>
 </html>
