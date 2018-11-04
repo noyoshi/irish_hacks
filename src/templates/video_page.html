@@ -132,16 +132,14 @@
       var chatID = "NoahYoshida"
     </script>
 
-    <button onclick="toggleChat()">Toggle Chat</button>
+    <button type="button" class="myButton" onclick="toggleChat()">Toggle Chat</button>
 
     <script>
-    </script>
-
-    <script>
-      var markup = `<div id="tlkio" data-channel=${chatID} style="display:none"></div>`
+      var markup = `<div id="tlkio" data-channel=${chatID} data-theme="theme--day" style="display:none"></div>`
       document.body.innerHTML += markup;
       var chatOpen = false;
       function toggleChat() {
+        console.log("in toggle chat");
         let iframeWrapNoChat = {
           "right": "12%", 
           "left": "12%",
@@ -165,4 +163,5 @@
   </body>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/static/video.css"> 
+  <link rel="stylesheet" href="/static/button.css">
 </html>
