@@ -19,7 +19,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon1">@</span>
             </div>
-            <form action="/" id="videoForm">
+            <form action="/" id="videoForm" onkeypress="return event.keyCode !=13;">
               <input type="text" autocomplete="off" class="form-control" placeholder="Video ID"
             aria-label="video_id" name="VideoID" aria-describedby="basic-addon1">
             </form>
@@ -31,7 +31,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon1">@</span>
             </div>
-            <form action="/" id="chatForm">
+            <form action="/" id="chatForm" onkeypress="return event.keyCode!=13;">
               <input type="text" autocomplete="off" class="form-control" placeholder="Chat Key"
             aria-label="chat_key" name="ChatKey" aria-describedby="basic-addon1">
             </form>
