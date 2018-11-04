@@ -62,8 +62,11 @@
             seekTo(msg.time);
           }
           playVideo();
-        } else if (msg.event_type === 2) {
+        } else if (msg.event_type === 2 ) {
           pauseVideo();
+        } else if (msg.event_type === 3 ) {
+          // Pause the video when someone is buffering
+          <!-- pauseVideo(); -->
         }
 
       });
@@ -75,7 +78,11 @@
         if (player == null) return;
         setInterval(function() {
           console.log(player.getCurrentTime());
-        }, 500);
+          socket.emit("video_update", {
+            time: player.getCurrentTime(), 
+            event_type: player.getPlayerState(), 
+        });
+        }, 1000);
       }
 
       // 4. The API will call this function when the video player is ready.
@@ -123,7 +130,7 @@
         position: absolute;
         margin-right: 5%;
         margin-left: 75%;
-        margin-top: 5%;
+        margin-top: 7%;
         width: 20%;
         height: 68%;
       }
